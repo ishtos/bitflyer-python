@@ -190,9 +190,9 @@ class API:
         return self.private_get("/v1/me/gettradingcommission", params)
 
     def public_get(self, path, params=None):
-        r = requests.get(self.url + path, params=params)
+        response = requests.get(self.url + path, params=params)
 
-        return self.parse_response(r)
+        return response
     
     def private_get(self, path, params=None):
         url = self.url + path
