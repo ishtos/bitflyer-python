@@ -9,7 +9,7 @@ import requests
 class API:
     url = "https://api.bitflyer.com"
  
-    def __init__(self, api_key, api_secret):
+    def __init__(self, api_key=None, api_secret=None):
         self.api_key = api_key
         self.api_secret = api_secret
 
@@ -198,7 +198,7 @@ class API:
         url = self.url + path
         if params:
             path += "?" + parse.urlencode(params)
-        header = self.get_header(path)
+        header = self.get_header("GET", path)
 
         try:
             with requests.session() as s:
@@ -212,7 +212,7 @@ class API:
     def post(self, path, **kwargs):
         url = self.url + path
         data = str(kwargs)
-        header = self.get_header(path, "POST", data)
+        header = self.get_header("POST", path, data)
 
         try:
             with requests.Session() as s:
@@ -223,7 +223,7 @@ class API:
 
         return response
         
-    def get_header(self, path, method="GET", data=None):
+    def get_header(self, method, path, data=None):
         timestamp = get_nonce()
         text = timestamp + method + path
         if data:
