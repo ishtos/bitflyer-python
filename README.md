@@ -6,7 +6,7 @@
 ## install 
 Using pip
 ```
-$ pip install bitflyer-python
+$ pip install bitflyer-py
 ```
 
 ## usage

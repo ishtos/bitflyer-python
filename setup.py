@@ -4,8 +4,8 @@ from setuptools import setup
 requires = ["requests"]
 
 setup(
-    name="bitflyer-python",
-    version="0.0.1",
+    name="bitflyer-py",
+    version="0.0.4",
     description="wrapper library for bitflyer api",
     author="ishtos",
     author_email="ginkgonut.9960@gmail.com",
