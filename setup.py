@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 requires = ["requests"]
@@ -10,11 +10,12 @@ setup(
     author="ishtos",
     author_email="ginkgonut.9960@gmail.com",
     license="MIT",
-    packages=find_packages(where="src"),
+    packages=["bitflyer"],
     install_requires=requires,
     classifiers=[
         "Programming Language :: Python"
     ],
+    keywords=["bitflyer"],
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
 )
