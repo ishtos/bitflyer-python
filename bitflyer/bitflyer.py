@@ -166,8 +166,12 @@ class API:
 
     def public_get(self, path, params=None):
         response = requests.get(self.url + path, params=params)
+        
+        result = {"statu_code": response.status_code}
+        if len(response.content) > 0:
+            result["content"] = response.json()
 
-        return response
+        return result
 
     def private_get(self, path, params=None):
         url = self.url + path
@@ -181,8 +185,12 @@ class API:
                 response = s.get(url, params=params)
         except requests.RequestException as e:
             raise e
+        
+        result = {"statu_code": response.status_code}
+        if len(response.content) > 0:
+            result["content"] = response.json()
 
-        return response
+        return result
 
     def post(self, path, **kwargs):
         url = self.url + path
@@ -196,7 +204,11 @@ class API:
         except requests.RequestException as e:
             raise e
 
-        return response
+        result = {"statu_code": response.status_code}
+        if len(response.content) > 0:
+            result["content"] = response.json()
+
+        return result
 
     def get_header(self, method, path, data=None):
         timestamp = get_nonce()
