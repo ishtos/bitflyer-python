@@ -167,11 +167,7 @@ class API:
     def public_get(self, path, params=None):
         response = requests.get(self.url + path, params=params)
         
-        result = {"statu_code": response.status_code}
-        if len(response.content) > 0:
-            result["content"] = response.json()
-
-        return result
+        return API.process_response(response)
 
     def private_get(self, path, params=None):
         url = self.url + path
@@ -186,11 +182,7 @@ class API:
         except requests.RequestException as e:
             raise e
         
-        result = {"statu_code": response.status_code}
-        if len(response.content) > 0:
-            result["content"] = response.json()
-
-        return result
+        return API.process_response(response)
 
     def post(self, path, **kwargs):
         url = self.url + path
@@ -204,14 +196,10 @@ class API:
         except requests.RequestException as e:
             raise e
 
-        result = {"statu_code": response.status_code}
-        if len(response.content) > 0:
-            result["content"] = response.json()
-
-        return result
+        return API.process_response(response)
 
     def get_header(self, method, path, data=None):
-        timestamp = get_nonce()
+        timestamp = API.get_nonce()
         text = timestamp + method + path
         if data:
             text += data
@@ -229,6 +217,14 @@ class API:
             self.api_secret.encode("utf-8"), text.encode("utf-8"), hashlib.sha256
         ).hexdigest()
 
+    @staticmethod
+    def get_nonce():
+        return str(int(time.time() * 1000000))
 
-def get_nonce():
-    return str(int(time.time() * 1000000))
+    @staticmethod
+    def process_response(response):
+        result = {"status_code": response.status_code}
+        if len(response.content) > 0:
+            result["content"] = response.json()
+
+        return result
