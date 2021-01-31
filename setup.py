@@ -5,7 +5,8 @@ requires = ["requests"]
 
 setup(
     name="bitflyer-py",
-    version="0.0.4",
+    version="0.0.5",
+    url="https://github.com/ti-ginkgo/bitflyer-python",
     description="wrapper library for bitflyer api",
     author="ishtos",
     author_email="ginkgonut.9960@gmail.com",

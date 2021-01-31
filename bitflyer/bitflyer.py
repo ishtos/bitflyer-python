@@ -2,6 +2,7 @@
 
 import hashlib
 import hmac
+import json
 import time
 from urllib import parse
 
@@ -19,7 +20,7 @@ class API:
         """Market List - マーケットの一覧"""
         return self.public_get(path="/v1/getmarkets")
 
-    def board(self, params={"product_code": "BTC_JPY"}):
+    def board(self, **params):
         """Order Book - 板情報
 
         Parameters:
@@ -27,7 +28,7 @@ class API:
         """
         return self.public_get(path="/v1/getboard", params=params)
 
-    def ticker(self, params={"product_code": "BTC_JPY"}):
+    def ticker(self, **params):
         """Ticker - Ticker
 
         Parameters:
@@ -35,7 +36,7 @@ class API:
         """
         return self.public_get(path="/v1/getticker", params=params)
 
-    def executions(self, params={"product_code": "BTC_JPY"}):
+    def executions(self, **params):
         """Execution History - 約定履歴
 
         Parameters:
@@ -90,83 +91,85 @@ class API:
         """Get Crypto Assets Deposit Addresses - 預入用アドレス取得"""
         return self.private_get("/v1/me/getaddresses")
 
-    def getcoinins(self, **kwargs):
+    def getcoinins(self, **params):
         """Get Crypto Assets Deposit History - 仮想通貨預入履歴"""
-        return self.private_get("/v1/me/getcoinins", **kwargs)
+        return self.private_get("/v1/me/getcoinins", params=params)
 
-    def getcoinouts(self, **kwargs):
+    def getcoinouts(self, **params):
         """Get Crypto Assets Transaction History - 仮想通貨送付履歴"""
-        return self.private_get("/v1/me/getcoinouts", **kwargs)
+        return self.private_get("/v1/me/getcoinouts", params=params)
 
     def getbankaccounts(self):
         """Get Summary of Bank Accounts - 銀行口座一覧取得"""
         return self.private_get("/v1/me/getbankaccounts")
 
-    def getdeposits(self, **kwargs):
+    def getdeposits(self, **params):
         """Get Cash Deposits - 入金履歴"""
-        return self.private_get("/v1/me/getdeposits", **kwargs)
+        return self.private_get("/v1/me/getdeposits", params=params)
 
-    def withdraw(self, **kwargs):
+    def withdraw(self, **params):
         """Withdrawing Funds - 出金"""
-        return self.post("/v1/me/withdraw", **kwargs)
+        return self.post("/v1/me/withdraw", params=params)
 
     def getwithdrawals(self):
         """Get Deposit Cancellation History - 出金履歴"""
         return self.private_get("/v1/me/getwithdrawals")
 
-    def sendchildorder(self, **kwargs):
+    def sendchildorder(self, **params):
         """Send a New Order - 新規注文を出す"""
-        return self.post("/v1/me/sendchildorder", **kwargs)
+        return self.post("/v1/me/sendchildorder", params=params)
 
-    def cancelchildorder(self, **kwargs):
+    def cancelchildorder(self, **params):
         """Cancel Order - 注文をキャンセルする"""
-        return self.post("/v1/me/cancelchildorder", **kwargs)
+        return self.post("/v1/me/cancelchildorder", params=params)
 
-    def sendparentorder(self, **kwargs):
+    def sendparentorder(self, **params):
         """Submit New Parent Order (Special order) - 新規の親注文を出す（特殊注文）"""
-        return self.post("/v1/me/sendparentorder", **kwargs)
+        return self.post("/v1/me/sendparentorder", params=params)
 
-    def cancelparentorder(self, **kwargs):
+    def cancelparentorder(self, **params):
         """Cancel parent order - 親注文をキャンセルする"""
-        return self.post("/v1/me/cancelparentorder", **kwargs)
+        return self.post("/v1/me/cancelparentorder", params=params)
 
-    def cancelallchildorders(self, **kwargs):
+    def cancelallchildorders(self, **params):
         """Cancel All Orders - すべての注文をキャンセルする"""
-        return self.post("/v1/me/cancelallchildorders", **kwargs)
+        return self.post("/v1/me/cancelallchildorders", params=params)
 
-    def getchildorders(self, **kwargs):
+    def getchildorders(self, **params):
         """List Orders - 注文の一覧を取得"""
-        return self.private_get("/v1/me/getchildorders", **kwargs)
+        return self.private_get("/v1/me/getchildorders", params=params)
 
-    def getparentorders(self, **kwargs):
+    def getparentorders(self, **params):
         """List Parent Orders - 親注文の一覧を取得"""
-        return self.private_get("/v1/me/getparentorders", **kwargs)
+        return self.private_get("/v1/me/getparentorders", params=params)
 
-    def getparentorder(self, **kwargs):
+    def getparentorder(self, **params):
         """Get Parent Order Details - 親注文の詳細を取得"""
-        return self.private_get("/v1/me/getparentorder", **kwargs)
+        return self.private_get("/v1/me/getparentorder", params=params)
 
-    def getexecutions(self, **kwargs):
+    def getexecutions(self, **params):
         """List Executions - 約定の一覧を取得"""
-        return self.private_get("/v1/me/getexecutions", **kwargs)
+        return self.private_get("/v1/me/getexecutions", params=params)
 
-    def getbalancehistory(self, **kwargs):
+    def getbalancehistory(self, **params):
         """List Balance History - 残高履歴を取得"""
-        return self.private_get("/v1/me/getbalancehistory", **kwargs)
+        return self.private_get("/v1/me/getbalancehistory", params=params)
 
-    def getpositions(self, **kwargs):
+    def getpositions(self, **params):
         """Get Open Interest Summary - 建玉の一覧を取得"""
-        return self.private_get("/v1/me/getpositions", **kwargs)
+        return self.private_get("/v1/me/getpositions", params=params)
 
-    def getcollateralhistory(self, **kwargs):
+    def getcollateralhistory(self, **params):
         """Get Margin Change History - 証拠金の変動履歴を取得"""
-        return self.private_get("/v1/me/getcollateralhistory", **kwargs)
+        return self.private_get("/v1/me/getcollateralhistory", params=params)
 
-    def gettradingcommission(self, params={"product_code": "BTC_JPY"}):
+    def gettradingcommission(self, **params):
         """Get Trading Commission - 取引手数料を取得"""
         return self.private_get("/v1/me/gettradingcommission", params)
 
     def public_get(self, path, params=None):
+        if params:
+            path += "?" + parse.urlencode(params)
         response = requests.get(self.url + path, params=params)
         
         return API.process_response(response)
@@ -186,9 +189,9 @@ class API:
         
         return API.process_response(response)
 
-    def post(self, path, **kwargs):
+    def post(self, path, params=None):
         url = self.url + path
-        data = str(kwargs)
+        data = json.dumps(params)
         header = self.get_header("POST", path, data)
 
         try:
