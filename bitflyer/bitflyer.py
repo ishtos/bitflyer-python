@@ -165,7 +165,7 @@ class API:
 
     def gettradingcommission(self, **params):
         """Get Trading Commission - 取引手数料を取得"""
-        return self.private_get("/v1/me/gettradingcommission", params)
+        return self.private_get("/v1/me/gettradingcommission", params=params)
 
     def public_get(self, path, params=None):
         if params:
